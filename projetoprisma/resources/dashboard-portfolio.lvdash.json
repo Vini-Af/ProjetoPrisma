@@ -171,7 +171,9 @@
               },
               "frame": {
                 "showTitle": true,
-                "title": "Carteira"
+                "title": "Carteira",
+                "description": "Soma do valor dos contratos dos projetos em andamento.",
+                "showDescription": true
               }
             }
           },
@@ -218,7 +220,9 @@
               },
               "frame": {
                 "showTitle": true,
-                "title": "SPI"
+                "title": "SPI",
+                "description": "SPI = valor agregado ÷ valor planejado. Abaixo de 1 = atrasado. Atenção < 0,9.",
+                "showDescription": true
               }
             }
           },
@@ -265,7 +269,9 @@
               },
               "frame": {
                 "showTitle": true,
-                "title": "CPI"
+                "title": "CPI",
+                "description": "CPI = valor agregado ÷ custo real. Abaixo de 1 = gastando mais do que o previsto. Atenção < 0,9.",
+                "showDescription": true
               }
             }
           },
@@ -314,7 +320,9 @@
               },
               "frame": {
                 "showTitle": true,
-                "title": "Estouro previsto"
+                "title": "Estouro previsto",
+                "description": "Soma do estouro previsto (EAC − orçamento), só para os projetos que vão estourar.",
+                "showDescription": true
               }
             }
           },
@@ -354,7 +362,9 @@
               },
               "frame": {
                 "showTitle": true,
-                "title": "Projetos em risco"
+                "title": "Projetos em risco",
+                "description": "Projetos com situação atenção ou crítico.",
+                "showDescription": true
               }
             }
           },
@@ -394,7 +404,9 @@
               },
               "frame": {
                 "showTitle": true,
-                "title": "Críticos"
+                "title": "Críticos",
+                "description": "Projetos com SPI ou CPI abaixo de 0,8.",
+                "showDescription": true
               }
             }
           },
@@ -434,7 +446,9 @@
               },
               "frame": {
                 "showTitle": true,
-                "title": "Melancias (farol verde, SPI < 0,9)"
+                "title": "Melancias (farol verde, SPI < 0,9)",
+                "description": "Projetos com farol verde no relatório do gerente, mas SPI abaixo de 0,9.",
+                "showDescription": true
               }
             }
           },
@@ -522,7 +536,9 @@
               },
               "frame": {
                 "showTitle": true,
-                "title": "Estouro previsto por projeto"
+                "title": "Estouro previsto por projeto",
+                "description": "Quanto cada projeto vai estourar o orçamento, colorido pela situação (crítico, atenção ou ok).",
+                "showDescription": true
               }
             }
           },
@@ -611,7 +627,9 @@
               },
               "frame": {
                 "showTitle": true,
-                "title": "SPI × CPI (um ponto por projeto)"
+                "title": "SPI × CPI (um ponto por projeto)",
+                "description": "Cada ponto é um projeto. Quanto mais à esquerda e para baixo, pior: atrasado e estourando.",
+                "showDescription": true
               }
             }
           },
@@ -701,7 +719,9 @@
               ],
               "frame": {
                 "showTitle": true,
-                "title": "SPI e CPI semanais da carteira"
+                "title": "SPI e CPI semanais da carteira",
+                "description": "Evolução semanal do SPI e do CPI da carteira. A linha de 0,9 marca o limite de atenção.",
+                "showDescription": true
               }
             }
           },
@@ -838,7 +858,9 @@
               },
               "frame": {
                 "showTitle": true,
-                "title": "Projetos em andamento: o farol do gerente ao lado do farol pelo número"
+                "title": "Projetos em andamento: o farol do gerente ao lado do farol pelo número",
+                "description": "Projetos em andamento com o farol do gerente ao lado do farol calculado pelo SPI. Divergência verde × vermelho indica possível melancia.",
+                "showDescription": true
               }
             }
           },
@@ -927,7 +949,9 @@
               },
               "frame": {
                 "showTitle": true,
-                "title": "Top 15 pessoas por custo da hora parada"
+                "title": "Top 15 pessoas por custo da hora parada",
+                "description": "15 pessoas com maior custo de horas ociosas (disponíveis e não apontadas em projeto) nas últimas 12 semanas.",
+                "showDescription": true
               }
             }
           },
@@ -992,7 +1016,9 @@
               },
               "frame": {
                 "showTitle": true,
-                "title": "Causas de bloqueio por projeto (últimos 90 dias)"
+                "title": "Causas de bloqueio por projeto (últimos 90 dias)",
+                "description": "Quantos status com bloqueio cada projeto teve, por causa, nos últimos 90 dias.",
+                "showDescription": true
               }
             }
           },
@@ -1106,7 +1132,9 @@
               },
               "frame": {
                 "showTitle": true,
-                "title": "Utilização por pessoa e projeto (da mais parada à mais ocupada)"
+                "title": "Utilização por pessoa e projeto (da mais parada à mais ocupada)",
+                "description": "Utilização = horas apontadas ÷ horas disponíveis, por pessoa e projeto. Ordenada da mais parada para a mais ocupada.",
+                "showDescription": true
               }
             }
           },
@@ -1228,7 +1256,9 @@
               },
               "frame": {
                 "showTitle": true,
-                "title": "Fornecedores"
+                "title": "Fornecedores",
+                "description": "Prazo real ÷ prometido (1 = no prazo, acima de 1 = atrasado), % de entregas no prazo e entregas em atraso hoje. Grafias = formas diferentes em que o nome aparecia.",
+                "showDescription": true
               }
             }
           },
@@ -1327,7 +1357,9 @@
               },
               "frame": {
                 "showTitle": true,
-                "title": "Entregas em atraso hoje"
+                "title": "Entregas em atraso hoje",
+                "description": "Entregas prometidas e ainda não entregues, com dias de atraso até 16/10/2026.",
+                "showDescription": true
               }
             }
           },

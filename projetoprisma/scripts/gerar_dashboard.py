@@ -264,6 +264,39 @@ dashboard = {
     }},
 }
 
+# Descrição mostrada no rodapé de cada quadrado (frame.description).
+DESCRICOES = {
+    "kpi_carteira": "Soma do valor dos contratos dos projetos em andamento.",
+    "kpi_spi": "SPI = valor agregado ÷ valor planejado. Abaixo de 1 = atrasado. Atenção < 0,9.",
+    "kpi_cpi": "CPI = valor agregado ÷ custo real. Abaixo de 1 = gastando mais do que o previsto. Atenção < 0,9.",
+    "kpi_estouro": "Soma do estouro previsto (EAC − orçamento), só para os projetos que vão estourar.",
+    "kpi_risco": "Projetos com situação atenção ou crítico.",
+    "kpi_criticos": "Projetos com SPI ou CPI abaixo de 0,8.",
+    "kpi_melancias": "Projetos com farol verde no relatório do gerente, mas SPI abaixo de 0,9.",
+    "estouro_por_projeto": "Quanto cada projeto vai estourar o orçamento, colorido pela situação (crítico, atenção ou ok).",
+    "spi_x_cpi": "Cada ponto é um projeto. Quanto mais à esquerda e para baixo, pior: atrasado e estourando.",
+    "spi_cpi_semanal": "Evolução semanal do SPI e do CPI da carteira. A linha de 0,9 marca o limite de atenção.",
+    "tabela_projetos": "Projetos em andamento com o farol do gerente ao lado do farol calculado pelo SPI. Divergência verde × vermelho indica possível melancia.",
+    "top_ociosos": "15 pessoas com maior custo de horas ociosas (disponíveis e não apontadas em projeto) nas últimas 12 semanas.",
+    "causas_por_projeto": "Quantos status com bloqueio cada projeto teve, por causa, nos últimos 90 dias.",
+    "tabela_utilizacao": "Utilização = horas apontadas ÷ horas disponíveis, por pessoa e projeto. Ordenada da mais parada para a mais ocupada.",
+    "tabela_fornecedores": "Prazo real ÷ prometido (1 = no prazo, acima de 1 = atrasado), % de entregas no prazo e entregas em atraso hoje. Grafias = formas diferentes em que o nome aparecia.",
+    "tabela_atrasadas": "Entregas prometidas e ainda não entregues, com dias de atraso até 16/10/2026.",
+}
+
+
+def aplicar_descricoes(pags):
+    for pag in pags:
+        for item in pag["layout"]:
+            spec = item["widget"].get("spec", {})
+            nome = item["widget"]["name"]
+            if nome in DESCRICOES and "frame" in spec:
+                spec["frame"]["description"] = DESCRICOES[nome]
+                spec["frame"]["showDescription"] = True
+
+
+aplicar_descricoes(dashboard["pages"])
+
 if __name__ == "__main__":
     SAIDA.write_text(json.dumps(dashboard, ensure_ascii=False, indent=2), encoding="utf-8")
     widgets = sum(len(p["layout"]) for p in dashboard["pages"])
