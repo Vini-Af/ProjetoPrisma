@@ -1,0 +1,61 @@
+# Job vertice_farol: a Torre de Controle inteira, toda segunda às 6h (pausado no dev pelo preset).
+#  1 ingestao_feriados   · notebook: BrasilAPI → bronze.feriados
+#  2 ingestao_data_lake  · notebook: Supabase Storage (boto3) → volume raw → as 9 tabelas da bronze
+#  3 conferencia_bronze  · sql: as 9 tabelas contra a contagem esperada (seed 42)
+#  4 medalhao            · pipeline vertice_medalhao: silver ×7 e gold ×3
+#  5 testes_de_qualidade · sql: os 10 testes da silver e da gold
+#  6 status_com_ia       · sql: texto do status → causa, quem destrava e dias de impacto (IA)
+# Ordem: 1 e 2 em paralelo → 3 → 4 → 5 e 6 em paralelo.
+resources:
+  jobs:
+    vertice_farol:
+      name: vertice_farol
+      tasks:
+        - task_key: ingestao_feriados
+          notebook_task:
+            notebook_path: ../src/ingestao/Ingestao_api.ipynb
+            source: WORKSPACE
+        - task_key: ingestao_data_lake
+          notebook_task:
+            # as chaves AWS_* vêm do secret scope "supabase" (lidas pelo notebook)
+            base_parameters:
+              AWS_DEFAULT_REGION: us-east-1
+              S3_ENDPOINT: https://xdkglldoairnqlfyswrk.storage.supabase.co/storage/v1/s3
+            notebook_path: ../src/ingestao/Ingestao_boto3.ipynb
+            source: WORKSPACE
+        - task_key: conferencia_bronze
+          depends_on:
+            - task_key: ingestao_feriados
+            - task_key: ingestao_data_lake
+          sql_task:
+            file:
+              path: ../src/conferencia/00-conferencia-bronze.sql
+            warehouse_id: ${var.warehouse_id}
+        - task_key: medalhao
+          depends_on:
+            - task_key: conferencia_bronze
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.vertice_medalhao.id}
+        - task_key: testes_de_qualidade
+          depends_on:
+            - task_key: medalhao
+          sql_task:
+            file:
+              path: ../src/testes/testes.sql
+            warehouse_id: ${var.warehouse_id}
+        - task_key: status_com_ia
+          depends_on:
+            - task_key: medalhao
+          sql_task:
+            file:
+              path: ../src/ia/status_estruturado.sql
+            warehouse_id: ${var.warehouse_id}
+      schedule:
+        quartz_cron_expression: "0 0 6 ? * MON"
+        timezone_id: America/Sao_Paulo
+        pause_status: PAUSED
+      # duas execuções ao mesmo tempo apagariam a bronze uma da outra
+      max_concurrent_runs: 1
+      performance_target: PERFORMANCE_OPTIMIZED
+      queue:
+        enabled: true
